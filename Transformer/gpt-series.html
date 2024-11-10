@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>gpt-series.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="gpt-1">GPT 1</h1>
+<h2 id="overview-abstract">Overview (Abstract)</h2>
+<ul>
+<li>Based on decoder of the transformer</li>
+<li>Improved by addressing the fact that the model architecture needs not to be changed for various tasks</li>
+</ul>
+<h2 id="intro">Intro</h2>
+<ul>
+<li>It used to be word embedding models.</li>
+<li>Previous techniques suffer from limited choice of the loss function</li>
+<li>Hard to transfer the representation to go to the downstream sub-tasks</li>
+<li>Proposed a semi-supervised approach</li>
+<li>Transformer based
+<ul>
+<li>For a more robust knowledge transfer</li>
+<li>More structured Memory</li>
+</ul>
+</li>
+<li>Used task specific technique</li>
+</ul>
+<h2 id="framework">Framework</h2>
+<h3 id="unsupervised-pre-training">Unsupervised pre-training</h3>
+<p>Setup: Given an unsupervised corpus of tokens U = {u1, ..., un} (with order information), a standard language modeling objective to maximise the following likelihood:
+$$
+L_1(U) = \sum_i \log P(u_i | u_{i - k}, \ldots , u_{i - 1} ; \Theta)
+$$</p>
+<ul>
+<li>In order to have natural order, we can only use decoder of the transformer architecture</li>
+<li>Then the current model architecture can be described as:
+$$
+h_0 = UW_e + W_p \
+h_l = \texttt{transformer_block} (h_{l-1}) ; \forall i \in [1,n] \
+P(u) = \texttt{softmax}(h_nW^T_e)
+$$</li>
+<li>Difference to BERT: Can see both before and after</li>
+</ul>
+<h3 id="supervised-fine-tuning">Supervised fine-tuning</h3>
+<ul>
+<li>Doing essentially the same thing as both but use the actual label rather than the next tokens.</li>
+<li>However, we will have a specific output matrix $W_y$</li>
+<li>Then, the $L_2$ objective can be trained together with the $L_1$ objective connected by the proportion $\lambda$ to control the weight of $L_1$.
+$$
+P\left( y \middle| x^1, \ldots, x^m \right) = \text{softmax}\left( h_l^m W_y \right) \
+L_2(C) = \sum_{(x, y)} \log P\left( y \middle| x^1, \ldots, x^m \right).
+$$</li>
+</ul>
+<h3 id="common-problems-formulation">Common Problems Formulation</h3>
+<p><img src="GPT NLP Problem Formulation.png" alt="GPT Problem Formulation"></p>
+<h2 id="experiements">Experiements</h2>
+<ul>
+<li>For 7000 unpublished books</li>
+<li>12-layer decoder-only transformer with masked self-attention heads</li>
+</ul>
+<h1 id="gpt2">GPT2</h1>
+<ul>
+<li>Relatively less important</li>
+<li>Mainly just for improving the models accuracy</li>
+<li>However, they have focused on the zero-shot possibilities they have mentioned
+<ul>
+<li>This would imply that they would then require the downstream subtask to only use the existing langauges rather than the special termination characters they used in GPT1</li>
+<li>Now, they have used English words as the terminators (which are later known as prompts)</li>
+</ul>
+</li>
+<li>However, even though this allows for multi-task machine learning and beat most of the state-of-the-art multi-tasks models back then, they were unable to beat the domain specific (trained for specific tasks).</li>
+<li>The main improvment was that they were able to directly used the pre-trained model without fine-tuning for specific tasks perform multiple sub-tasks.</li>
+</ul>
+<h1 id="gpt3-language-models-are-few-shot-learners">GPT3: Language Models are Few-Shot Learners</h1>
+<ul>
+<li>Even though GPT2 was very innovative, it wasn't very significant because of it lacks actual implementation.</li>
+<li>It is slightly impractical to have absolutely no traning samples for learning a subtasks.
+<ul>
+<li>This is very not human, and we still need to have some basic materials to learn the sub-tasks.</li>
+<li>It's just that human uses sample a lot more efficient than LLM</li>
+</ul>
+</li>
+<li>No fine-tuning nor gradient updates for any sub-task training or fine-tuning</li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li>Having to be highly accurate in the fine-tuning predictions does not really mean that your model has good generatlisation capability. It might have well enough to just be the model is &quot;overfitting&quot; to the training set but just that it is extremely large!
+<ul>
+<li>For example, using a lot of paragraphs in wikipedia, websites,...</li>
+</ul>
+</li>
+<li>Separated into two phrases: Meta-learning &amp; In-context learning
+<ul>
+<li>Note that meta-learning is not the &quot;meta-learning&quot; that has been around for decades. In this literature, it simply means that it is a learning of the meta-information. Then, the in-context learning is simply learning in a specific context.
+<ul>
+<li>The main difference in practical is that meta-learning will have gradient updates and changing the weight, whereas &quot;in-context learning&quot; wont'. Note that &quot;in-context learning&quot; is more like giving more information in the inputs</li>
+<li>In my prospective. This does describe how we learn very well... (Even though they have to overwrite the previous meaning.)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="image.png" alt="alt text"></p>
+<hr>
+<ul>
+<li>Evaluate three conditions:
+<ul>
+<li>Few-shot learning: Have few learning (10 - 100)</li>
+<li>One-shot learning: Only have one sample before the prediction tasks</li>
+<li>Zero-shot learning: No sample before predictions</li>
+</ul>
+</li>
+</ul>
+<h2 id="model-architecture">Model Architecture</h2>
+<ul>
+<li>Using the new sparse transformer</li>
+</ul>
+<h2 id="training-dataset">Training Dataset</h2>
+<ul>
+<li>In order for larger models, they have used a much larger dataset (Common Crowl).</li>
+<li>However, as they have mentioned in GPT2, this dataset is considered to be relativel dirty. Therefore, they needed to just clean up by checking if it is similar to redit.</li>
+<li>Also remove duplicate contents by using <ins>Local Sensitive Hash</ins>.</li>
+</ul>
+<h2 id="training-process">Training Process</h2>
+<ul>
+<li>Mixture of Model parallelism
+<ul>
+<li>Matrix Multiplication</li>
+<li>Model Parallelism across the layers of the network.</li>
+</ul>
+</li>
+<li>Using DGX-1 Cluster</li>
+</ul>
+<h2 id="evaluation">Evaluation</h2>
+<ul>
+<li>Prediction prompt is &quot;Answer: &quot; or &quot;A: &quot;</li>
+<li>For binary classification, then use &quot;True&quot; or &quot;False&quot; Rather than 0 or 1</li>
+<li>For free-form completion, they use beam search.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Notable weakness in text synthesis and several NLP
+<ul>
+<li>Most of the times they are highly repeatable</li>
+</ul>
+</li>
+<li>Structural and Algorithmic Limitations
+<ul>
+<li>Only one way with autor-regressive predictions</li>
+</ul>
+</li>
+<li>All words are weighted equally currently
+<ul>
+<li>It does not understand that some of the words are less common in the language and some are more common in the language</li>
+<li>No videos...</li>
+</ul>
+</li>
+<li>Not efficient
+<ul>
+<li>Most of the things all the web are used</li>
+</ul>
+</li>
+<li>Unsure if the current evaluation task is actually not in the training dataset.
+<ul>
+<li>It may possibly have similar tasks in the existing training dataset</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>

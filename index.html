@@ -4,45 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Hub</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .header-image {
-            width: 100%;
-            height: 25vh;
-            background: url('path_to_your_generated_image.jpg') no-repeat center center;
-            background-size: cover;
-        }
-        .content {
-            padding: 20px;
-        }
-        .snake-game-placeholder {
-            width: 100%;
-            height: 400px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed #ccc;
-            margin-top: 20px;
-        }
-        canvas {
-            background-color: black; /* Add this line */
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="header-image"></div>
     <div class="content">
         <h1>Welcome to the Learning Hub</h1>
         <p>This project is designed to help you learn about various topics including Transformers, GPT series, Pytorch, CUDA, and low-bit training. Explore the <a href="intro_material.html">introductory materials</a> to get started.</p>
-        <div class="snake-game-placeholder">
-            <canvas id="game" width="600" height="400"></canvas>
-        </div>
+        
+        <h2>Transformer & GPT</h2>
+        <ul id="transformer-links">
+            <!-- Links will be populated here -->
+        </ul>
+
+        <h2>Cuda GPU</h2>
+        <ul id="cuda-gpu-links">
+            <!-- Links will be populated here -->
+        </ul>
+        
+        <!-- Snake Game Section -->
+        <section id="snake-game">
+            <h2>Snake Game</h2>
+            <div class="snake-game-placeholder">
+                <canvas id="game" width="600" height="400"></canvas>
+            </div>
+        </section>
     </div>
+    
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Isaac Leong. All rights reserved.</p>
+        <p>Contact: <a href="mailto:u7643339@anu.edu.au">u7643339@anu.edu.au</a>, <a href="mailto:isaacleong23367@gmail.com">isaacleong23367@gmail.com</a></p>
+    </footer>
+    
     <script src="game/SnakeGame.js"></script>
+    <script>
+        // Fetch and display Transformer & GPT HTML files from transformer.json
+        fetch('Transformer/transformer.json')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('transformer-links');
+                data.files.forEach(file => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="Transformer/${file}">${file.replace('.html', '')}</a>`;
+                    list.appendChild(li);
+                });
+            })
+            .catch(() => {
+                console.log('Unable to fetch Transformer & GPT files.');
+            });
+
+        // Fetch and display Cuda GPU HTML files from cuda_gpu.json
+        fetch('cuda_gpu/cuda_gpu.json')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('cuda-gpu-links');
+                data.files.forEach(file => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="cuda_gpu/${file}">${file.replace('.html', '')}</a>`;
+                    list.appendChild(li);
+                });
+            })
+            .catch(() => {
+                console.log('Unable to fetch Cuda GPU files.');
+            });
+    </script>
 </body>
 </html>
